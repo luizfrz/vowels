@@ -2,3 +2,7 @@ numpy
 Pillow
 tensorflow
 opencv-python
+ipykernel
+kagglehub
+os
+pandas
