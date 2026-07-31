@@ -1,7 +1,8 @@
-# Modelo indentificar Vogais e Algarismo
+# Modelo indentificar Vogais, Algarismoe e consoante
 ---
 
-<img width="555" height="488" alt="image" src="https://github.com/user-attachments/assets/691a7307-af34-4183-bc23-886a56916b60" />
+<img width="347" height="305" alt="image-removebg-preview" src="https://github.com/user-attachments/assets/dcddd631-dfa5-41cd-8d23-5fc6c6cc2af9" />
+
 
 ## Estrutura do projeto
 
