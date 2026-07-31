@@ -1,6 +1,8 @@
 # Modelo indentificar Vogais e Algarismo
 ---
 
+<img width="555" height="488" alt="image" src="https://github.com/user-attachments/assets/691a7307-af34-4183-bc23-886a56916b60" />
+
 ## Estrutura do projeto
 
 ```
