@@ -4,5 +4,4 @@ tensorflow
 opencv-python
 ipykernel
 kagglehub
-os
 pandas

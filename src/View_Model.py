@@ -13,48 +13,40 @@ VOWELS = set("AEIOU")
 model = tf.keras.models.load_model(MODEL_PATH)
 
 def load_image(path):
-    img = Image.open(path).convert("")
-    img = img.resize((IMG_SIZE, IMG_SIZE))
+    img = Image.open(path).convert("L")
     return np.array(img)
 
-
 def preprocess(img_array):
-    img = Image.fromarray(img_array)
+    img = Image.fromarray(img_array).convert("L")
+    img = img.resize((IMG_SIZE, IMG_SIZE), Image.LANCZOS)
 
-    img = img.transpose(Image.TRANSPOSE)
-    img = img.transpose(Image.FLIP_LEFT_RIGHT)
+    arr = np.array(img, dtype=np.float32)
 
-    arr = np.array(img)
+    if arr.std() > 1e-3 and arr.mean() > 127:
+        arr = 255.0 - arr
 
-    if arr.mean() > 127:
-        arr = 255 - arr
-
-    arr = arr.astype(np.float32)
     arr = arr.reshape(1, IMG_SIZE, IMG_SIZE, 1)
 
     return arr
 
+
 def classify(img_array):
-
     arr = preprocess(img_array)
+
+    debug = (arr[0, :, :, 0] * 255).astype(np.uint8)
+    Image.fromarray(debug).save("debug.png")
+
     probs = model.predict(arr, verbose=0)[0]
+
     idx = int(np.argmax(probs))
-    char = CLASSES[idx]
-    conf = float(probs[idx])
-
-    is_digit = char.isdigit()
-    tipo = "Algarismo" if is_digit else "Letra"
-
-    subtipo = None
-    if not is_digit:
-        subtipo = "Vogal" if char in VOWELS else "Consoante"
+    top = np.argsort(probs)[::-1][:10]
 
     return {
-        "caractere": char,
-        "confianca": conf,
-        "tipo": tipo,
-        "subtipo": subtipo,
-    }
+        "caractere": CLASSES[idx],
+        "confianca": float(probs[idx]),
+        "tipo": "Algarismo" if CLASSES[idx].isdigit() else "Letra",
+        "subtipo": None if CLASSES[idx].isdigit() else ("Vogal" if CLASSES[idx] in VOWELS else "Consoante"),
+    }   
 
 BG = "#060606"
 FG = "#ffffff"

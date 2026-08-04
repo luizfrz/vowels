@@ -199,9 +199,3 @@ for i, c in enumerate(classes):
 
 overall_acc = (y_true == y_pred).mean() * 100
 print(f"\nAcurácia geral (recalculada): {overall_acc:.2f}%")
-
-if never_predicted:
-    print(f"\n!!! ATENÇÃO: o modelo NUNCA previu estas classes em nenhum exemplo "
-          f"de validação: {never_predicted}")
-else:
-    print("\nTodas as classes foram previstas ao menos uma vez em algum exemplo.")
