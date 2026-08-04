@@ -44,13 +44,13 @@ https://www.kaggle.com/datasets/crawford/emnist/data
 | Épocas máximas | 30 |
 | Seed | 42 |
 
-## Dataset MIN
+## Dataset EMNIST
 | Split | Imagens |
 |-------|---------|
 | Treino| 529.006|
 | Teste | 88.299  |
 | Total | 617.305 | 
-============================================================
+
 
     0:  77.7%  (n=5723)
     1:  92.0%  (n=6261)
