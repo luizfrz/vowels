@@ -3,20 +3,21 @@ import json
 import numpy as np
 import tensorflow as tf
 from tensorflow.keras import layers, models, callbacks
+import warnings
+warnings.filterwarnings('ignore')
 
 SEED = 42
 tf.keras.utils.set_random_seed(SEED)
 
-DATA_DIR    = os.path.join(os.path.dirname(__file__), "..", "data", "dataset")
-MODEL_OUT   = os.path.join(os.path.dirname(__file__), "..", "data", "model.keras")
-HISTORY_OUT = os.path.join(os.path.dirname(__file__), "..", "data", "history.json")
+DATA_DIR = "data/dataset" 
+MODEL_OUT = "/data/model"
 
 IMG_SIZE   = 28
 BATCH_SIZE = 128
 EPOCHS     = 20
 
-TRAIN_DIR = os.path.join(DATA_DIR, "train")
-TEST_DIR  = os.path.join(DATA_DIR, "test")
+TRAIN_DIR = "/data/dataset/train"
+TEST_DIR  = "/data/dataset/test"
 
 classes      = sorted(os.listdir(TRAIN_DIR))
 test_classes = sorted(os.listdir(TEST_DIR))
@@ -25,6 +26,7 @@ test_classes = sorted(os.listdir(TEST_DIR))
 if classes != test_classes:
     only_in_train = set(classes) - set(test_classes)
     only_in_test  = set(test_classes) - set(classes)
+
     msg = ["Pastas de train/ e test/ não coincidem!"]
     if only_in_train:
         msg.append(f"  Só em train/: {sorted(only_in_train)}")
@@ -164,17 +166,6 @@ history = model.fit(
     verbose=0,
 )
 
-print(f"Modelo salvo em: {MODEL_OUT}")
-print(f"Melhor val_accuracy: {max(history.history['val_accuracy'])*100:.2f}%")
-
-with open(HISTORY_OUT, "w") as f:
-    json.dump(history.history, f, indent=2)
-print(f"Histórico salvo em: {HISTORY_OUT}")
- 
-print(f"\n{'='*60}")
-print("  Avaliação por classe (val_data)")
-print(f"{'='*60}\n")
-
 y_true = []
 y_pred = []
 for x_batch, y_batch in val_data:
@@ -185,17 +176,22 @@ for x_batch, y_batch in val_data:
 y_true = np.array(y_true)
 y_pred = np.array(y_pred)
 
-predicted_counts = np.bincount(y_pred, minlength=NUM_CLASSES)
-never_predicted  = [classes[i] for i in range(NUM_CLASSES) if predicted_counts[i] == 0]
-
 for i, c in enumerate(classes):
     mask = (y_true == i)
     n = mask.sum()
     if n == 0:
         continue
     acc_classe = (y_pred[mask] == i).mean() * 100
-    flag = "  < nunca acertou" if acc_classe == 0 else ""
+    flag = "  <-- nunca acertou" if acc_classe == 0 else ""
     print(f"  {c:>3}: {acc_classe:5.1f}%  (n={n}){flag}")
 
 overall_acc = (y_true == y_pred).mean() * 100
 print(f"\nAcurácia geral (recalculada): {overall_acc:.2f}%")
+
+
+print(f"Modelo salvo em: {MODEL_OUT}")
+print(f"Melhor val_accuracy: {max(history.history['val_accuracy'])*100:.2f}%")
+
+print(f"\n{'='*60}")
+print("  Avaliação por classe (val_data)")
+print(f"{'='*60}\n")

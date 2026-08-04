@@ -2,15 +2,13 @@ import os
 import pandas as pd
 from PIL import Image
 from tqdm import tqdm
-
-DATA_DIR = "../data"
+DATA_DIR = "/data/"
 
 TRAIN_CSV = os.path.join(DATA_DIR, "emnist-byclass-train.csv")
 TEST_CSV = os.path.join(DATA_DIR, "emnist-byclass-test.csv")
 MAPPING = os.path.join(DATA_DIR, "emnist-byclass-mapping.txt")
 
-
-OUTPUT = "../data"
+OUTPUT = "/kaggle/working/dataset"
 os.makedirs(OUTPUT, exist_ok=True)
 
 mapping = {}
@@ -26,7 +24,6 @@ with open(MAPPING) as f:
 valid_classes = {}
 
 new_label = 0
-
 
 for old, char in mapping.items():
 
@@ -48,7 +45,7 @@ for old, char in mapping.items():
 
         new_label += 1
 
-        print("Classes encontradas:", len(valid_classes))
+print("Classes encontradas:", len(valid_classes))
 
 def process(csv_file, split):
 
@@ -76,9 +73,11 @@ def process(csv_file, split):
         img = Image.new("L", (28,28))
         img.putdata(pixels)
 
+        # Corrige orientação do EMNIST
         img = img.transpose(Image.TRANSPOSE)
         img = img.transpose(Image.FLIP_LEFT_RIGHT)
 
+        # Garante fundo preto e caractere branco
         arr = list(img.getdata())
         if sum(arr) / len(arr) > 127:
             arr = [255 - p for p in arr]
@@ -92,8 +91,9 @@ def process(csv_file, split):
         img.save(filename)
 
         process.counter += 1
-        process.counter = 0
-        
+
+process.counter = 0
+
 print("Convertendo treino...")
 process(TRAIN_CSV, "train")
 
