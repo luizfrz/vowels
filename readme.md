@@ -1,4 +1,4 @@
-# Modelo indentificar Vogais, Algarismoe e consoante
+# Modelo indentificar Vogais, Algarismo e consoante
 ---
 
 <img width="347" height="305" alt="image-removebg-preview" src="https://github.com/user-attachments/assets/dcddd631-dfa5-41cd-8d23-5fc6c6cc2af9" />
