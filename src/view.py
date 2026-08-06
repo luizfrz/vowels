@@ -5,7 +5,7 @@ import tensorflow as tf
 import tkinter as tk
 from tkinter import filedialog
 
-MODEL_PATH = os.path.join(os.path.dirname(__file__), "..", "data", "model.keras")
+MODEL_PATH = os.path.join(os.path.dirname(__file__), "..", "data", "model", "model.keras"   )
 IMG_SIZE = 28
 CLASSES = [str(i) for i in range(10)] + [chr(c) for c in range(ord("A"), ord("Z") + 1)]
 VOWELS = set("AEIOU")
@@ -33,9 +33,6 @@ def preprocess(img_array):
 def classify(img_array):
     arr = preprocess(img_array)
 
-    debug = (arr[0, :, :, 0] * 255).astype(np.uint8)
-    Image.fromarray(debug).save("debug.png")
-
     probs = model.predict(arr, verbose=0)[0]
 
     idx = int(np.argmax(probs))
@@ -43,11 +40,12 @@ def classify(img_array):
 
     return {
         "caractere": CLASSES[idx],
-        "confianca": float(probs[idx]),
+        "confianca": float(probs[idx]), 
         "tipo": "Algarismo" if CLASSES[idx].isdigit() else "Letra",
         "subtipo": None if CLASSES[idx].isdigit() else ("Vogal" if CLASSES[idx] in VOWELS else "Consoante"),
     }   
 
+# Cores
 BG = "#060606"
 FG = "#ffffff"
 ACCENT = "#2160c7"
@@ -55,7 +53,7 @@ GREEN = "#a6e3a1"
 YELLOW = "#f9e2af"
 
 root = tk.Tk()
-root.title("Classificador Vogais e Algarismo")
+root.title("Classificador")
 root.configure(bg=BG)
 root.resizable(False, False)
 

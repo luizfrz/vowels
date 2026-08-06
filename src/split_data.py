@@ -2,13 +2,16 @@ import os
 import pandas as pd
 from PIL import Image
 from tqdm import tqdm
-DATA_DIR = "/data/"
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+DATA_DIR = os.path.join(BASE_DIR, "data")
+OUTPUT = os.path.join(BASE_DIR, "data", "emnist_source_files")
 
 TRAIN_CSV = os.path.join(DATA_DIR, "emnist-byclass-train.csv")
 TEST_CSV = os.path.join(DATA_DIR, "emnist-byclass-test.csv")
 MAPPING = os.path.join(DATA_DIR, "emnist-byclass-mapping.txt")
 
-OUTPUT = "/kaggle/working/dataset"
 os.makedirs(OUTPUT, exist_ok=True)
 
 mapping = {}
@@ -73,11 +76,9 @@ def process(csv_file, split):
         img = Image.new("L", (28,28))
         img.putdata(pixels)
 
-        # Corrige orientação do EMNIST
         img = img.transpose(Image.TRANSPOSE)
         img = img.transpose(Image.FLIP_LEFT_RIGHT)
 
-        # Garante fundo preto e caractere branco
         arr = list(img.getdata())
         if sum(arr) / len(arr) > 127:
             arr = [255 - p for p in arr]
