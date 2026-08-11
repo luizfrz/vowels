@@ -4,7 +4,6 @@
 <img width="347" height="305" alt="image-removebg-preview" src="https://github.com/user-attachments/assets/dcddd631-dfa5-41cd-8d23-5fc6c6cc2af9" />
 
 ## Estrutura do projeto
-
 ```
 Vogais/
 ├── data/
@@ -50,8 +49,9 @@ https://www.kaggle.com/datasets/crawford/emnist/data
 | Treino| 529.006|
 | Teste | 88.299  |
 | Total | 617.305 | 
+============================================================
 
-
+# Taxa de aprendizagem de cada classe
     0:  77.7%  (n=5723)
     1:  92.0%  (n=6261)
     2:  91.5%  (n=5814)
