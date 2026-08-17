@@ -29,7 +29,6 @@ def preprocess(img_array):
 
     return arr
 
-
 def classify(img_array):
     arr = preprocess(img_array)
 
@@ -45,7 +44,7 @@ def classify(img_array):
         "subtipo": None if CLASSES[idx].isdigit() else ("Vogal" if CLASSES[idx] in VOWELS else "Consoante"),
     }   
 
-# Cores
+# Cores 
 BG = "#060606"
 FG = "#ffffff"
 ACCENT = "#2160c7"

@@ -49,7 +49,15 @@ https://www.kaggle.com/datasets/crawford/emnist/data
 | Treino| 529.006|
 | Teste | 88.299  |
 | Total | 617.305 | 
-============================================================
+
+## Visão Geral do Pipeline Completo
+
+```mermaid
+flowchart LR
+    A[(EMNIST CSV\n+ Mapping)] -->|split_data.py| B[(data/emnist_source_files\ntrain/ · test/)]
+    B -->|training.py| C[(data/model\nmodel.keras)]
+    C -->|view.py| D([Interface Tkinter\nClassificação em tempo real])
+```
 
 # Taxa de aprendizagem de cada classe
     0:  77.7%  (n=5723)

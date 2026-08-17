@@ -4,6 +4,7 @@ import numpy as np
 import tensorflow as tf
 from tensorflow.keras import layers, models, callbacks
 import warnings
+
 warnings.filterwarnings('ignore')
 
 SEED = 42
@@ -21,7 +22,6 @@ TEST_DIR  = "/data/dataset/test"
 
 classes      = sorted(os.listdir(TRAIN_DIR))
 test_classes = sorted(os.listdir(TEST_DIR))
-
 
 if classes != test_classes:
     only_in_train = set(classes) - set(test_classes)
@@ -187,7 +187,6 @@ for i, c in enumerate(classes):
 
 overall_acc = (y_true == y_pred).mean() * 100
 print(f"\nAcurácia geral (recalculada): {overall_acc:.2f}%")
-
 
 print(f"Modelo salvo em: {MODEL_OUT}")
 print(f"Melhor val_accuracy: {max(history.history['val_accuracy'])*100:.2f}%")
