@@ -4,7 +4,8 @@
 <img width="347" height="305" alt="image-removebg-preview" src="https://github.com/user-attachments/assets/dcddd631-dfa5-41cd-8d23-5fc6c6cc2af9" />
 
 ## Sobre projeto
-Uma rede neural criado sobre um desafio lançado do grupo de *Boitatá lab* para indentificar letras e número, indentificar se consoante, vogais ou algarismo tamanho 28x28.
+Uma rede neural criado sobre um desafio lançado do grupo de *Boitatá lab* para indentificar letras e número, indentificar se consoante, vogais ou algarismo tamanho *28x28*.
+
 
 ## Estrutura do projeto
 ```
@@ -27,7 +28,9 @@ Vogais/
 ## Como utilizar 
 
 ### Efetue clonagem do projeto 
-``git clone https://github.com/luizfrz/vowels``
+``` bash
+git clone https://github.com/luizfrz/vowels
+```
 
 #### Criar ambiente
 ``` bash
@@ -71,6 +74,11 @@ https://www.kaggle.com/datasets/crawford/emnist/data
 | Treino| 529.006|
 | Teste | 88.299  |
 | Total | 617.305 | 
+
+## Modelo indentificando 
+<img width="300" height="400" alt="Screenshot_2026-08-19_15-13-36" src="https://github.com/user-attachments/assets/ea535b60-a5f3-4261-9348-5d87b406c2dd" />
+<img width="300" height="400" alt="Screenshot_2026-08-19_15-08-51" src="https://github.com/user-attachments/assets/8cf6125c-f778-47fd-8c2c-5431e4fdfbe3" />
+
 
 ## Visão Geral do Pipeline Completo
 
