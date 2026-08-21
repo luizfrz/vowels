@@ -4,7 +4,7 @@
 <img width="347" height="305" alt="image-removebg-preview" src="https://github.com/user-attachments/assets/dcddd631-dfa5-41cd-8d23-5fc6c6cc2af9" />
 
 ## Sobre projeto
-Uma rede neural criado sobre um desafio lançado do grupo de *Boitatá lab* para indentificar letras e número, indentificar se consoante, vogais ou algarismo tamanho *28x28*.
+Uma rede neural criado sobre um desafio lançado do grupo de *Boitatá* para indentificar letras e número, indentificar se consoante, vogais ou algarismo tamanho *28x28*.
 
 
 ## Estrutura do projeto
