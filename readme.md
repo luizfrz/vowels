@@ -3,13 +3,18 @@
 
 <img width="347" height="305" alt="image-removebg-preview" src="https://github.com/user-attachments/assets/dcddd631-dfa5-41cd-8d23-5fc6c6cc2af9" />
 
+## Sobre projeto
+Uma rede neural criado sobre um desafio lançado do grupo de *Boitatá lab* para indentificar letras e número, indentificar se consoante, vogais ou algarismo tamanho 28x28.
+
 ## Estrutura do projeto
 ```
 Vogais/
 ├── data/
+├─── example/ ➔ exemplos
+├─── model/
+├─── graph/
 ├── notebook/ ➔ Código comentado
-├──── instal_dataset.ipynb/ 
-├──── slipt_data.ipynb/ 
+├──── split_data.ipynb/ 
 ├──── training.ipynb/ 
 ├── src/ 
 ├──── instal_dataset.py/ 
@@ -19,20 +24,37 @@ Vogais/
 └── requirements.txt
 ```
 
-## Como usar
+## Como utilizar 
 
-### 1. Instalar 
+### Efetue clonagem do projeto 
+``git clone https://github.com/luizfrz/vowels``
 
 #### Criar ambiente
 ``` bash
 python3 -m venv venv
 ```
+#### Ativar ambiente
+``` bash
+source venv/bin/activate
+```
 #### Instala  dependências
 ```bash 
 pip install -r requirements.txt
 ```
+#### Faz divisão de train/ teste/
+```bash 
+python3 split_data.py
+```
+#### Treinamento do modelo
+```bash 
+python3 training.py
+```
+#### Classificação 
+```bash 
+python3 view.py
+```
 
-## Dataset 
+## Dataset utilizado
 https://www.kaggle.com/datasets/crawford/emnist/data
 
 **Configurações:**

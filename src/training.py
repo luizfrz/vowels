@@ -3,9 +3,6 @@ import json
 import numpy as np
 import tensorflow as tf
 from tensorflow.keras import layers, models, callbacks
-import warnings
-
-warnings.filterwarnings('ignore')
 
 SEED = 42
 tf.keras.utils.set_random_seed(SEED)
@@ -20,12 +17,12 @@ EPOCHS     = 20
 TRAIN_DIR = "/data/dataset/train"
 TEST_DIR  = "/data/dataset/test"
 
-classes      = sorted(os.listdir(TRAIN_DIR))
-test_classes = sorted(os.listdir(TEST_DIR))
+class_data  = sorted(os.listdir(TRAIN_DIR))
+teste_class = sorted(os.listdir(TEST_DIR))
 
-if classes != test_classes:
-    only_in_train = set(classes) - set(test_classes)
-    only_in_test  = set(test_classes) - set(classes)
+if class_data != teste_class:
+    only_in_train = set(class_data) - set(teste_class)
+    only_in_test  = set(teste_class) - set(class_data)
 
     msg = ["Pastas de train/ e test/ não coincidem!"]
     if only_in_train:
@@ -37,13 +34,13 @@ if classes != test_classes:
 counts    = {c: len(os.listdir(os.path.join(TRAIN_DIR, c))) for c in classes}
 min_count = min(counts.values())
 
-print(f"Classes: {len(classes)}")
+print(f"Classes: {len(class_data)}")
 print(f"Amostras por classe (antes): min={min_count}  max={max(counts.values())}")
 print(f"Amostras por classe (após undersampling): {min_count}")
-print(f"Total treino: {min_count * len(classes):,}\n")
+print(f"Total treino: {min_count * len(class_data):,}\n")
 
 class_datasets = []
-for i, c in enumerate(classes):
+for i, c in enumerate(class_data):
     ds = tf.keras.utils.image_dataset_from_directory(
         TRAIN_DIR,
         labels="inferred",
@@ -61,7 +58,7 @@ for i, c in enumerate(classes):
 train_data = (
     tf.data.Dataset.sample_from_datasets(
         class_datasets,
-        weights=[1.0 / len(classes)] * len(classes),
+        weights=[1.0 / len(class_data)] * len(class_data),
         seed=SEED,
     )
     .shuffle(10000, seed=SEED)
@@ -74,7 +71,7 @@ val_data = (
         TEST_DIR,
         labels="inferred",
         label_mode="int",
-        class_names=classes,
+        class_names=class_data,
         image_size=(IMG_SIZE, IMG_SIZE),
         color_mode="grayscale",
         batch_size=BATCH_SIZE,
@@ -83,7 +80,7 @@ val_data = (
     .prefetch(tf.data.AUTOTUNE)
 )
 
-NUM_CLASSES     = len(classes)
+NUM_CLASSES     = len(class_data)
 steps_per_epoch = (min_count * NUM_CLASSES) // BATCH_SIZE
 
 model = models.Sequential([
@@ -176,7 +173,7 @@ for x_batch, y_batch in val_data:
 y_true = np.array(y_true)
 y_pred = np.array(y_pred)
 
-for i, c in enumerate(classes):
+for i, c in enumerate(class_data):
     mask = (y_true == i)
     n = mask.sum()
     if n == 0:
@@ -191,6 +188,6 @@ print(f"\nAcurácia geral (recalculada): {overall_acc:.2f}%")
 print(f"Modelo salvo em: {MODEL_OUT}")
 print(f"Melhor val_accuracy: {max(history.history['val_accuracy'])*100:.2f}%")
 
-print(f"\n{'='*60}")
-print("  Avaliação por classe (val_data)")
-print(f"{'='*60}\n")
+# print(f"\n{'='*60}")
+# print("  Avaliação por classe (val_data)")
+# print(f"{'='*60}\n")
