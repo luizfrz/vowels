@@ -11,16 +11,13 @@ Uma rede neural criado sobre um desafio lançado do grupo de *Boitatá* para ind
 ```
 Vogais/
 ├── data/
-├─── example/ ➔ exemplos
+├─── example/ 
 ├─── model/
-├─── graph/
-├── notebook/ ➔ Código comentado
+├── notebook/ 
 ├──── split_data.ipynb/ 
 ├──── training.ipynb/ 
 ├── src/ 
-├──── instal_dataset.py/ 
-├──── slipt_data.py/ 
-├──── training.py/ 
+├──── instal_dataset.py/  
 ├──── view.py/ 
 └── requirements.txt
 ```
